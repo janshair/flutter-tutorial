@@ -5,7 +5,6 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         leading: Icon(Icons.menu),
         title: Text('My Home Page'),
         actions: [
@@ -14,6 +13,9 @@ class MyHomePage extends StatelessWidget {
             child: Icon(Icons.settings),
           )
         ],
+      ),
+      body: Center(
+        child: Text('Hello world!'),
       ),
     );
   }
