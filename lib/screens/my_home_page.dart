@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
 
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   String _bodyText = 'Hello world!';
+
   @override
   Widget build(BuildContext context) {
+    print('Called build method with $_bodyText');
     return Scaffold(
         appBar: AppBar(
           leading: Icon(Icons.menu),
@@ -27,7 +34,10 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _changeBody(){
-    _bodyText = "New text!";
-    print(_bodyText);
+    setState(() {
+      _bodyText = "New text!";
+      print(_bodyText);
+    });
+
   }
 }
