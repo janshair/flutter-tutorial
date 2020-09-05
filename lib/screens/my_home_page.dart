@@ -24,13 +24,52 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: Center(
-          child: Text(_bodyText),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 50),
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.all(Radius.circular(20))
+            ),
+
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'Email Address',
+                  ),
+                ),
+                TextField(
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-        bottomSheet: RaisedButton(
-          padding: const EdgeInsets.all(10),
-          child: Text('Change Body!'),
-          onPressed: _changeBody,
-        ));
+        bottomSheet: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RaisedButton(
+              padding: const EdgeInsets.all(10),
+              child: Text('Sign up'),
+              onPressed: _changeBody,
+            ),
+            FlatButton(
+              color: Colors.green,
+              padding: const EdgeInsets.all(10),
+              child: Text('Login'),
+              onPressed: _changeBody,
+            )
+          ],
+        )
+    );
   }
 
   void _changeBody(){
