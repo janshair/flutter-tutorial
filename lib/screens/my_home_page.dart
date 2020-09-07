@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../enum/authentication_type.dart';
 
 class MyHomePage extends StatefulWidget {
 
@@ -14,9 +15,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  AuthenticationType _authenticationType = AuthenticationType.SIGN_IN;
+
   @override
   Widget build(BuildContext context) {
-    print('Called build method with $_bodyText');
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.menu),
@@ -62,45 +64,69 @@ class _MyHomePageState extends State<MyHomePage> {
                   labelText: 'Password',
                 ),
               ),
-              TextFormField(
-                controller: _confirmPasswordController,
-                keyboardType: TextInputType.text,
-                validator: (value) {
-                  if(value.length < 4 ){
-                    return 'Password too short';
-                  } else if(_passwordController.text.toString() != _confirmPasswordController.text.toString() ){
-                    return 'Passwords do not match';
-                  }
-                  return null;
-                },
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Confirm Password',
-                ),
+              Visibility(
+                visible: _authenticationType == AuthenticationType.SIGN_UP,
+                child: TextFormField(
+                  controller: _confirmPasswordController,
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if(_authenticationType == AuthenticationType.SIGN_IN) {
+                      return null;
+                    }
+                    if(value.length < 4 ){
+                      return 'Password too short';
+                    } else if(_passwordController.text.toString() != _confirmPasswordController.text.toString() ){
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Confirm Password',
+                  ),
 
+                ),
               ),
               SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RaisedButton(
-                    padding: const EdgeInsets.all(10),
-                    child: Text('Sign up'),
-                    onPressed: _changeBody,
+                  Visibility(
+                    visible: _authenticationType == AuthenticationType.SIGN_UP,
+                    child: RaisedButton(
+                      padding: const EdgeInsets.all(10),
+                      child: Text('Sign up'),
+                      onPressed: _changeBody,
+                    ),
                   ),
-                  FlatButton(
-                    color: Colors.green,
-                    padding: const EdgeInsets.all(10),
-                    child: Text('Login'),
-                    onPressed: _changeBody,
+                  Visibility(
+                    visible: _authenticationType == AuthenticationType.SIGN_IN,
+                    child: FlatButton(
+                      color: Colors.green,
+                      padding: const EdgeInsets.all(10),
+                      child: Text('Login'),
+                      onPressed: _changeBody,
+                    ),
                   )
                 ],
-              )
+              ),
+              GestureDetector(
+                onTap: () => _changeView(_authenticationType == AuthenticationType.SIGN_IN ? AuthenticationType.SIGN_UP : AuthenticationType.SIGN_IN),
+                child: Text(_authenticationType == AuthenticationType.SIGN_IN ? 'Create an account' : 'Already have an account , sign up',
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _changeView(AuthenticationType authenticationType) {
+    setState(() {
+      _authenticationType = authenticationType;
+    });
   }
 
   void _changeBody() {
