@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/side_drawer.dart';
 import '../enum/authentication_type.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -21,7 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.menu),
         title: Text('My Home Page'),
         actions: [
           Padding(
@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
+      drawer: Drawer(child: SideDrawer(),),
       body: Center(
         child: Form(
           key: _formKey,
