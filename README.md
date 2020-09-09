@@ -1,16 +1,17 @@
-# shops_app
 
-A new Flutter application.
 
-## Getting Started
+Flutter Course as uploaded on youtube
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Section 1: Scaffold
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+[Part 1: Appbar](https://www.youtube.com/watch?v=wTpC8gsFLyA)
+[Part 2: Body](https://www.youtube.com/watch?v=SygI7sbFHlk)
+[Part 3: Bottom Sheet](https://www.youtube.com/watch?v=Ey6KSSyUOOU)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+Section 2: Widgets
+
+[Part 1: Stateless and Stateful Widgets](https://www.youtube.com/watch?v=NQ7nFDKl9Oo)
+[Part 2: Row, Column, Container, Axis Alignment, Decoration](https://www.youtube.com/watch?v=VMwPUuV-Hxk)
+[Part 3: Form, TextInputField Validators, TextInputField Errors](https://www.youtube.com/watch?v=pejQGXgDznw)
