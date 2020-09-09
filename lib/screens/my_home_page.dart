@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
               GestureDetector(
                 onTap: () => _changeView(_authenticationType == AuthenticationType.SIGN_IN ? AuthenticationType.SIGN_UP : AuthenticationType.SIGN_IN),
                 child: Text(_authenticationType == AuthenticationType.SIGN_IN ? 'Create an account' : 'Already have an account , sign up',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                  style: TextStyle(fontWeight: FontWeight.w700, color: Colors.blue),
                 ),
               ),
             ],
