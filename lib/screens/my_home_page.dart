@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:shops_app/widgets/adaptive_button.dart';
+
 import '../widgets/side_drawer.dart';
 import '../enum/authentication_type.dart';
 
@@ -26,9 +30,12 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: Icon(Icons.settings),
+            child: Icon(Platform.isIOS ? Icons.add : Icons.settings),
           )
         ],
+      ),
+      floatingActionButton: Platform.isIOS ? null : FloatingActionButton(
+        child: Icon(Icons.add),
       ),
       drawer: Drawer(child: SideDrawer(),),
       body: Center(
@@ -94,11 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Visibility(
                     visible: _authenticationType == AuthenticationType.SIGN_UP,
-                    child: RaisedButton(
-                      padding: const EdgeInsets.all(10),
-                      child: Text('Sign up'),
-                      onPressed: _changeBody,
-                    ),
+                    child: AdaptiveButton('Sign up',_changeBody),
                   ),
                   Visibility(
                     visible: _authenticationType == AuthenticationType.SIGN_IN,
