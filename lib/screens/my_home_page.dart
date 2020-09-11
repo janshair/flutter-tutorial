@@ -99,26 +99,22 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Visibility(
-                    visible: _authenticationType == AuthenticationType.SIGN_UP,
-                    child: AdaptiveButton('Sign up',_changeBody),
+                  _authenticationType == AuthenticationType.SIGN_UP ? AdaptiveButton('Sign up',_changeBody): FlatButton(
+                    color: Colors.green,
+                    padding: const EdgeInsets.all(10),
+                    child: Text('Login'),
+                    onPressed: _changeBody,
                   ),
-                  Visibility(
-                    visible: _authenticationType == AuthenticationType.SIGN_IN,
-                    child: FlatButton(
-                      color: Colors.green,
-                      padding: const EdgeInsets.all(10),
-                      child: Text('Login'),
-                      onPressed: _changeBody,
-                    ),
-                  )
+
                 ],
               ),
               GestureDetector(
                 onTap: () => _changeView(_authenticationType == AuthenticationType.SIGN_IN ? AuthenticationType.SIGN_UP : AuthenticationType.SIGN_IN),
-                child: Text(_authenticationType == AuthenticationType.SIGN_IN ? 'Create an account' : 'Already have an account , sign up',
+                child: _authenticationType == AuthenticationType.SIGN_IN ? Text(  'Create an account',
                   style: TextStyle(fontWeight: FontWeight.w700, color: Colors.blue),
-                ),
+                ) : Text( 'Already have an account , Login',
+        style: TextStyle(fontWeight: FontWeight.w700, color: Colors.blue),
+      ),
               ),
             ],
           ),
