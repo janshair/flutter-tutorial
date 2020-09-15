@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shops_app/widgets/adaptive_button.dart';
 
+import '../constants.dart';
 import '../widgets/side_drawer.dart';
 import '../enum/authentication_type.dart';
+import '../utils/text_validators.dart';
 
 class MyHomePage extends StatefulWidget {
 
@@ -13,7 +15,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _bodyText = 'Hello world!';
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
@@ -21,6 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   AuthenticationType _authenticationType = AuthenticationType.SIGN_IN;
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
                TextFormField(
+                 key: ValueKey(Constants.KEY_EMAIL),
                  validator: (value) {
-                   if(!value.contains('@') && !value.contains('.')){
-                     return 'Email address is not valid';
+                   if(!value.isEmailValid()){
+                     return Constants.ERROR_EMAIL;
                    }
                    return null;
                  },
@@ -59,9 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               TextFormField(
+                key: ValueKey(Constants.KEY_PASSWORD),
                 validator: (value) {
                   if(value.length < 4 ){
-                    return 'Password too short';
+                    return Constants.ERROR_PASSWORD;
                   }
                   return null;
                 },
@@ -72,37 +76,36 @@ class _MyHomePageState extends State<MyHomePage> {
                   labelText: 'Password',
                 ),
               ),
-              Visibility(
-                visible: _authenticationType == AuthenticationType.SIGN_UP,
-                child: TextFormField(
-                  controller: _confirmPasswordController,
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if(_authenticationType == AuthenticationType.SIGN_IN) {
-                      return null;
-                    }
-                    if(value.length < 4 ){
-                      return 'Password too short';
-                    } else if(_passwordController.text.toString() != _confirmPasswordController.text.toString() ){
-                      return 'Passwords do not match';
-                    }
+              if(_authenticationType == AuthenticationType.SIGN_UP)
+              TextFormField(
+                key: ValueKey(Constants.KEY_CONFIRM_PASSWORD),
+                controller: _confirmPasswordController,
+                keyboardType: TextInputType.text,
+                validator: (value) {
+                  if(_authenticationType == AuthenticationType.SIGN_IN) {
                     return null;
-                  },
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Confirm Password',
-                  ),
-
+                  }
+                  if(value.length < 4 ){
+                    return Constants.ERROR_PASSWORD;
+                  } else if(_passwordController.text.toString() != _confirmPasswordController.text.toString() ){
+                    return Constants.ERROR_PASSWORD_MATCHING;
+                  }
+                  return null;
+                },
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Confirm Password',
                 ),
+
               ),
               SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _authenticationType == AuthenticationType.SIGN_UP ? AdaptiveButton('Sign up',_changeBody): FlatButton(
+                  _authenticationType == AuthenticationType.SIGN_UP ? AdaptiveButton(Constants.SIGN_UP_BUTTON_TEXT,_changeBody): FlatButton(
                     color: Colors.green,
                     padding: const EdgeInsets.all(10),
-                    child: Text('Login'),
+                    child: Text(Constants.LOGIN_BUTTON_TEXT),
                     onPressed: _changeBody,
                   ),
 
@@ -110,9 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               GestureDetector(
                 onTap: () => _changeView(_authenticationType == AuthenticationType.SIGN_IN ? AuthenticationType.SIGN_UP : AuthenticationType.SIGN_IN),
-                child: _authenticationType == AuthenticationType.SIGN_IN ? Text(  'Create an account',
+                child: _authenticationType == AuthenticationType.SIGN_IN ? Text(  Constants.CREATE_ACCOUNT_TEXT,
                   style: TextStyle(fontWeight: FontWeight.w700, color: Colors.blue),
-                ) : Text( 'Already have an account , Login',
+                ) : Text( Constants.ALREADT_HAVE_AN_ACCOUNT_TEXT,
         style: TextStyle(fontWeight: FontWeight.w700, color: Colors.blue),
       ),
               ),
