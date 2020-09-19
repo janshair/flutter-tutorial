@@ -102,8 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _authenticationType == AuthenticationType.SIGN_UP ? AdaptiveButton(Constants.SIGN_UP_BUTTON_TEXT,_changeBody): FlatButton(
+                  _authenticationType == AuthenticationType.SIGN_UP ? AdaptiveButton(ValueKey(Constants.KEY_SIGNUP_BUTTON),Constants.SIGN_UP_BUTTON_TEXT,_changeBody): FlatButton(
                     color: Colors.green,
+                    key: ValueKey(Constants.KEY_LOGIN_BUTTON),
                     padding: const EdgeInsets.all(10),
                     child: Text(Constants.LOGIN_BUTTON_TEXT),
                     onPressed: _changeBody,
@@ -113,9 +114,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               GestureDetector(
                 onTap: () => _changeView(_authenticationType == AuthenticationType.SIGN_IN ? AuthenticationType.SIGN_UP : AuthenticationType.SIGN_IN),
-                child: _authenticationType == AuthenticationType.SIGN_IN ? Text(  Constants.CREATE_ACCOUNT_TEXT,
+                child: _authenticationType == AuthenticationType.SIGN_IN ? Text(
+                  Constants.CREATE_ACCOUNT_TEXT,
+                  key: ValueKey(Constants.CREATE_ACCOUNT_KEY),
                   style: TextStyle(fontWeight: FontWeight.w700, color: Colors.blue),
                 ) : Text( Constants.ALREADT_HAVE_AN_ACCOUNT_TEXT,
+                  key: ValueKey(Constants.CREATE_ACCOUNT_KEY),
         style: TextStyle(fontWeight: FontWeight.w700, color: Colors.blue),
       ),
               ),
